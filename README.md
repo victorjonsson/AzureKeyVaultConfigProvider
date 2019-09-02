@@ -62,3 +62,8 @@ Now you can start referencing key vault secrets using the following syntax `@Azu
 ```
 
 You have the option to provide the base url of your key vault instance on every call to @AzureKeyVault(...) or you can add a single configuration parameter named `AZURE_KEY_VAULT_URL`, containing the base url.
+
+## Authentication
+
+This package takes for granted that you're using [Managed Identites](https://docs.microsoft.com/en-us/aspnet/core/security/key-vault-configuration?view=aspnetcore-2.2#use-managed-identities-for-azure-resources) to authenticate against the key vault. If that is not the case you need to implement `VikJon.AzureKeyVaultConfigProvider.IKeyVaultGateway` and provide the extension method `AddAzureKeyVaultWithNameRefSupport` with an instance of that implementation. 
+
