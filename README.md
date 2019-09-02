@@ -65,5 +65,5 @@ You have the option to provide the base url of your key vault instance on every 
 
 ## Authentication
 
-This package takes for granted that you're using [Managed Identites](https://docs.microsoft.com/en-us/aspnet/core/security/key-vault-configuration?view=aspnetcore-2.2#use-managed-identities-for-azure-resources) to authenticate against the key vault. If that is not the case you need to implement `VikJon.AzureKeyVaultConfigProvider.IKeyVaultGateway` and provide the extension method `AddAzureKeyVaultWithNameRefSupport` with an instance of that implementation. 
+This package takes for granted that you're using [Managed Identites](https://docs.microsoft.com/en-us/aspnet/core/security/key-vault-configuration?view=aspnetcore-2.2#use-managed-identities-for-azure-resources) to authenticate against the key vault. If that is not the case you need to implement [VikJon.AzureKeyVaultConfigProvider.IKeyVaultGateway](https://github.com/victorjonsson/dotnet-AzureKeyVaultConfigProvider/blob/master/src/VikJon.AzureKeyVaultConfigProvider/IKeyVaultGateway.cs) and provide the extension method `AddAzureKeyVaultWithNameRefSupport` with an instance of that implementation. 
 
