@@ -14,7 +14,7 @@ namespace VikJon.AzureKeyVaultConfigProvider
                 var azureServiceTokenProvider = new AzureServiceTokenProvider();
                 var keyVaultAuthCallback = new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback);
                 var keyVaultClient = new KeyVaultClient(keyVaultAuthCallback);
-                keyVaultGateway = new KeyVaultGateway(keyVaultClient);
+                keyVaultGateway = new AzureKeyVaultGateway(keyVaultClient);
             }
             return builder.Add(new ConfigurationSource(builder.Build(), azureKeyVaultUrl, keyVaultGateway));
         }

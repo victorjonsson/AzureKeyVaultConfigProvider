@@ -7,11 +7,11 @@ namespace VikJon.AzureKeyVaultConfigProvider
     /**
      * This class only exists to enable mocking of the extension method IKeyVaultClient.GetSecretAsync
      */
-    class KeyVaultGateway : IKeyVaultGateway
+    class AzureKeyVaultGateway : IKeyVaultGateway
     {
         private readonly IKeyVaultClient _keyVaultClient;
 
-        public KeyVaultGateway(IKeyVaultClient keyVaultClient)
+        public AzureKeyVaultGateway(IKeyVaultClient keyVaultClient)
         {
             _keyVaultClient = keyVaultClient;
         }
