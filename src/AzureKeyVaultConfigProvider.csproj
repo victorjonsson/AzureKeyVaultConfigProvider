@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Authors>Viktor Jonsson</Authors>
+    <PackageId>VikJon.AzureKeyVaultProvider</PackageId>
+    <Product>VikJon.AzureKeyVaultProvider</Product>
+    <Description>Configuration provider that makes your KeyVault reference support for referencing secrets using their names</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/victorjonsson/AzureKeyVaultConfigProvider</RepositoryUrl>
+    <PackageTags>azure, keyvault, azure keyvault, security, secrets</PackageTags>
+    <Version>1.0.2</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Azure.Services.AppAuthentication">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.azure.services.appauthentication\1.0.1\lib\netstandard1.4\Microsoft.Azure.Services.AppAuthentication.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
