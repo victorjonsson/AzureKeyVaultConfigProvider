@@ -17,4 +17,4 @@ the secret version** when referencing a key vault secret. Using this package mak
 }
 ```
 
-Isn't that nice and clean looking? Having to repeat the key vault url is no major problem. But it becomes tidious to manage when having a lot of secrets and the url to the vault changes.
+Isn't that nice and clean looking? Having to repeat the key vault url is of course no major problem. But it becomes tidious to manage when having a lot of secrets and the url to the vault changes.
