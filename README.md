@@ -18,3 +18,47 @@ the secret version** when referencing a key vault secret. Using this package mak
 ```
 
 Isn't that nice and clean looking? Having to repeat the key vault url is of course no major problem. But it becomes tidious to manage when having a lot of secrets and the url to the vault changes.
+
+## Setup
+
+After that you've installed the package using nuget you have to invoke the extension method `VikJon.AzureKeyVaultConfigProvider.AddAzureKeyVaultWithNameRefSupport` on the ConfigurationBuilder of your .netcore app. This usually looks something like this in `Program.cs`
+
+```C#
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using VikJon.AzureKeyVaultConfigProvider;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateWebHostBuilder(args).Build().Run();
+    }
+
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        WebHost.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+            	config
+                  .SetBasePath(Directory.GetCurrentDirectory())
+                  .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
+                  .AddCommandLine(args)
+                  .AddEnvironmentVariables()
+		  .AddAzureKeyVaultWithNameRefSupport()
+            })
+            .UseStartup<Startup>();
+}
+```
+**Notice!** You should not invoke `config.AddAzureKeyVault` on the ConfigurationBuilder
+
+Now you can start referencing key vault secrets using the following syntax `@AzureKeyVault([SECRET_NAME], [KEY_VAULT_URL:optional])` 
+
+```
+// appsettings.json
+{
+	"AZURE_KEY_VAULT_URL": "https://myvault.vault.azure.net/",
+	"SENDGRID_API_KEY": "@AzureKeyVault(SendgridApiKey)"
+}
+```
+
+You have the option to provide the base url of your key vault instance on every call to @AzureKeyVault(...) or you can add a single configuration parameter named `AZURE_KEY_VAULT_URL`, containing the base url.
