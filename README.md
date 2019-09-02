@@ -42,8 +42,8 @@ public class Program
             	config
                   .SetBasePath(Directory.GetCurrentDirectory())
                   .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
-                  .AddCommandLine(args)
                   .AddEnvironmentVariables()
+                  .AddCommandLine(args)
 		  .AddAzureKeyVaultWithNameRefSupport()
             })
             .UseStartup<Startup>();
