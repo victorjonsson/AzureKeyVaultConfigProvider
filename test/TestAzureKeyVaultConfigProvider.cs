@@ -109,6 +109,25 @@ namespace VikJon.AzureKeyVaultConfigProvider
             Assert.Equal("anotherSecretValue", newConfig["AnotherConfigWithSecret"]?.ToString());
         }
 
+        [Fact]
+        public void test_that_we_can_fetch_secrets_when_having_complex_objects_in_config()
+        {
+            var keyVaultGateway = new Mock<IKeyVaultGateway>();
+            var secretBundle = new SecretBundle() { Value = SecretValue };
+            keyVaultGateway
+                .Setup(m => m.GetSecretAsync("SecretFromJsonFile", "https://keyvaultdeclaredinappjson.com"))
+                .Returns(Task.FromResult(secretBundle));
+
+            var configBuilder = new ConfigurationBuilder();
+            configBuilder.AddJsonFile($"app-settings.json");
+            configBuilder.AddAzureKeyVaultWithNameRefSupport(null, keyVaultGateway.Object);
+            var newConfig = configBuilder.Build();
+            var complexConfigObj = newConfig.GetSection("ComplexObject");
+            Assert.Equal(SecretValue, complexConfigObj["SettingWithSecretInAppSettingsJson"]?.ToString());
+            Assert.Equal("hasvalue", complexConfigObj["something"]?.ToString());
+            Assert.Equal("stillhasvalue", newConfig["rootLevel"]?.ToString());
+        }
+
         private static IDictionary<string, string> GetConfig(string keyVaultRef)
         {
             return new Dictionary<string, string>() {

@@ -19,4 +19,10 @@
     <ProjectReference Include="..\src\AzureKeyVaultConfigProvider.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="app-settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

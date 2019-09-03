@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Configuration;
 
 namespace VikJon.AzureKeyVaultConfigProvider
@@ -43,12 +44,19 @@ namespace VikJon.AzureKeyVaultConfigProvider
         private IDictionary<string, AzureKeyVaultReference> FilterOutSettingsWithKeyVaultRef()
         {
             var refs = new Dictionary<string, AzureKeyVaultReference>();
-            foreach (var configSection in _config.GetChildren())
+            FilterOutSettingsWithKeyVaultRefRecursive(_config, refs);
+            return refs;
+        }
+
+        private IDictionary<string, AzureKeyVaultReference> FilterOutSettingsWithKeyVaultRefRecursive(IConfiguration configSection, IDictionary<string, AzureKeyVaultReference> refs)
+        {
+            foreach (var childSection in configSection.GetChildren())
             {
-                var value = configSection.Value;
+                FilterOutSettingsWithKeyVaultRefRecursive(childSection, refs);
+                var value = childSection.Value;
                 if (value != null && value.StartsWith(AzureKeyVaultReference.CONFIG_VALUE_PREFIX))
                 {
-                    refs.Add(configSection.Key, AzureKeyVaultReference.CreateFromString(value));
+                    refs.Add(childSection.Path, AzureKeyVaultReference.CreateFromString(value));
                 }
             }
             return refs;

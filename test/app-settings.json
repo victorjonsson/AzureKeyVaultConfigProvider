@@ -1,0 +1,9 @@
+﻿{
+  "AZURE_KEY_VAULT_URL": "https://keyvaultdeclaredinappjson.com",
+  "ComplexObject": {
+    "something": "hasvalue",
+    "SettingWithSecretInAppSettingsJson": "@AzureKeyVault(SecretFromJsonFile)",
+    "somethingelse": "other"
+  },
+  "rootLevel":  "stillhasvalue"
+}
