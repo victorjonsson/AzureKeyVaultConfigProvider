@@ -46,7 +46,7 @@ namespace VikJon.AzureKeyVaultConfigProvider
             foreach (var configSection in _config.GetChildren())
             {
                 var value = configSection.Value;
-                if (value.StartsWith(AzureKeyVaultReference.CONFIG_VALUE_PREFIX))
+                if (value != null && value.StartsWith(AzureKeyVaultReference.CONFIG_VALUE_PREFIX))
                 {
                     refs.Add(configSection.Key, AzureKeyVaultReference.CreateFromString(value));
                 }

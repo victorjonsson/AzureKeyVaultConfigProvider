@@ -109,7 +109,7 @@ namespace VikJon.AzureKeyVaultConfigProvider
             Assert.Equal("anotherSecretValue", newConfig["AnotherConfigWithSecret"]?.ToString());
         }
 
-        private static Dictionary<string, string> GetConfig(string keyVaultRef)
+        private static IDictionary<string, string> GetConfig(string keyVaultRef)
         {
             return new Dictionary<string, string>() {
                 {"Something", "HasValue"},
