@@ -1,6 +1,6 @@
 # AzureKeyVaultConfigProvider
 
-This nuget package is an alternative to [Azure Key Vault References](https://docs.microsoft.com/en-us/azure/app-service/app-service-key-vault-references#reference-syntax) that provides 
+This nuget package gives you an alternative to [Azure Key Vault References](https://docs.microsoft.com/en-us/azure/app-service/app-service-key-vault-references#reference-syntax) that provides 
 the following benefits:
 
 - The one major downside when it comes to key vault references is that you have to know the `secretVersion` (GUID) of the secret you're referencing. This becomes a problem
