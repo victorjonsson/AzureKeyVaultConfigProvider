@@ -68,7 +68,16 @@ namespace VikJon.AzureKeyVaultConfigProvider
                 var value = childSection.Value;
                 if (value != null && value.StartsWith(AzureKeyVaultReference.CONFIG_VALUE_PREFIX))
                 {
-                    refs.Add(childSection.Path, AzureKeyVaultReference.CreateFromString(value));
+                    try
+                    {
+                        refs.Add(childSection.Path, AzureKeyVaultReference.CreateFromString(value));
+                    } catch (ParsKeyVaultReferenceException parseException)
+                    {
+                        throw new InvalidConfigException(
+                            "Unable to parse key vault reference in setting " + childSection.Path +
+                            " got error: " + parseException.Message
+                        );
+                    }
                 }
             }
             return refs;

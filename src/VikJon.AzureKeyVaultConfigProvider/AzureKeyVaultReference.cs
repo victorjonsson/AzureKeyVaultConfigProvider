@@ -3,7 +3,7 @@
     /**
      * Value object representing a "key vault reference"
      */
-    internal class AzureKeyVaultReference
+    public class AzureKeyVaultReference
     {
         public const string CONFIG_VALUE_PREFIX = "@AzureKeyVault(";
 
@@ -14,17 +14,38 @@
         {
             var strippedValue = value.Substring(CONFIG_VALUE_PREFIX.Length);
             strippedValue = strippedValue.Substring(0, strippedValue.Length - 1);
-            var strippedValueChunks = strippedValue.Split(',');
-            if (strippedValueChunks.Length > 2)
+            var chunks = strippedValue.Split(',');            
+            var secretName = chunks[0].Trim();
+            var vaultUrl = chunks.Length == 1 ? null : chunks[1]?.Trim();
+            if (vaultUrl == "")
             {
-                throw new InvalidConfigException("Azure KeyVault reference are not allowed to contain muptiple comma signs " + value);
+                vaultUrl = null;
+            }
+
+            if (chunks.Length > 2)
+            {
+                throw new ParsKeyVaultReferenceException("Azure KeyVault reference are not allowed to contain muptiple comma signs " + value);
+            }
+            if (secretName == "")
+            {
+                throw new ParsKeyVaultReferenceException("Empty secret name not allowed");
             }
 
             return new AzureKeyVaultReference()
             {
-                KeyVaultSecretName = strippedValueChunks[0].Trim(),
-                KeyVaultUrl = strippedValueChunks.Length == 1 ? null : strippedValueChunks[1]?.Trim(),
+                KeyVaultSecretName = secretName,
+                KeyVaultUrl = vaultUrl
             };
+        }
+
+        public string ToString()
+        {
+            return string.Format(
+                    "{0}{1}{2})",
+                    CONFIG_VALUE_PREFIX,
+                    KeyVaultSecretName,
+                    string.IsNullOrEmpty(KeyVaultUrl) ? "" : ", " + KeyVaultUrl
+                );
         }
     }
 }

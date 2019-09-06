@@ -10,7 +10,7 @@
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/victorjonsson/dotnet-AzureKeyVaultConfigProvider</RepositoryUrl>
     <PackageTags>azure, keyvault, azure keyvault, security, secrets</PackageTags>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
   </PropertyGroup>
 
   <ItemGroup>
