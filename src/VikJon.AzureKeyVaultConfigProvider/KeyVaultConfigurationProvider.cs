@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace VikJon.AzureKeyVaultConfigProvider
@@ -36,7 +37,18 @@ namespace VikJon.AzureKeyVaultConfigProvider
                     throw new InvalidConfigException("Azure key vault url is missing when trying to fetch " + secretName);
                 }
 
-                var secretBundle = _keyVaultGateway.GetSecretAsync(secretName, keyVaultUrl).Result;
+                SecretBundle secretBundle = null;
+                try
+                {
+                    secretBundle = _keyVaultGateway.GetSecretAsync(secretName, keyVaultUrl).Result;
+                }
+                catch (System.Exception exception)
+                {
+                    throw new InvalidConfigException(
+                        "Unable to fetch key vault secret for app setting '" + settingName + "', see inner exception for more info", 
+                        exception
+                    );
+                }
                 Data.Add(settingName, secretBundle == null ? "" : secretBundle.Value);
             }
         }

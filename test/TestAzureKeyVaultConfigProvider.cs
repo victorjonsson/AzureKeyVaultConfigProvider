@@ -1,3 +1,4 @@
+using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -33,6 +34,22 @@ namespace VikJon.AzureKeyVaultConfigProvider
                         {NameOfConfigHavingSecret, GetKeyVaultRefMissingVaultUrl()}
                     });
             configBuilder.AddAzureKeyVaultWithNameRefSupport();
+            Assert.Throws<InvalidConfigException>(() => configBuilder.Build());
+        }
+
+        [Fact]
+        public void test_that_we_get_expected_exception_referencing_nonexistent_secret()
+        {
+            var keyVaultGateway = new Mock<IKeyVaultGateway>();
+            keyVaultGateway
+                .Setup(m => m.GetSecretAsync(SecretName, KeyVaultUrl))
+                .Throws<System.Exception>();
+
+            var configBuilder = new ConfigurationBuilder();
+            configBuilder.AddInMemoryCollection(new Dictionary<string, string>() {
+                        {NameOfConfigHavingSecret, GetKeyVaultRef()}
+                    });
+            configBuilder.AddAzureKeyVaultWithNameRefSupport(null, keyVaultGateway.Object);
             Assert.Throws<InvalidConfigException>(() => configBuilder.Build());
         }
 

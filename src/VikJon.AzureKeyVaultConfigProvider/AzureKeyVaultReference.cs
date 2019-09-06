@@ -14,7 +14,7 @@
         {
             var strippedValue = value.Substring(CONFIG_VALUE_PREFIX.Length);
             strippedValue = strippedValue.Substring(0, strippedValue.Length - 1);
-            var strippedValueChunks = strippedValue.Split(",");
+            var strippedValueChunks = strippedValue.Split(',');
             if (strippedValueChunks.Length > 2)
             {
                 throw new InvalidConfigException("Azure KeyVault reference are not allowed to contain muptiple comma signs " + value);
