@@ -13,7 +13,7 @@ the secret version** when referencing a key vault secret. Using this package mak
 // appsettings.json
 {
 	"AZURE_KEY_VAULT_URL": "https://myvault.vault.azure.net/",
-	"SENDGRID_API_KEY": "@AzureKeyVault(SendgridApiKey)",
+	"SENDGRID_API_KEY": "@AzureKeyVault(SENDGRID_API_KEY)",
 }
 ```
 
@@ -57,7 +57,7 @@ Now you can start referencing key vault secrets using the following syntax `@Azu
 // appsettings.json
 {
 	"AZURE_KEY_VAULT_URL": "https://myvault.vault.azure.net/",
-	"SENDGRID_API_KEY": "@AzureKeyVault(SendgridApiKey)"
+	"SENDGRID_API_KEY": "@AzureKeyVault(SENDGRID_API_KEY)"
 }
 ```
 
