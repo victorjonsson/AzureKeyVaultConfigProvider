@@ -1,6 +1,6 @@
 # NOTICE!
 
-_Don't mind this repo, it's no longer relevant since Microsoft now have implemented support for refering to a secret without declaring exact version of the secret!_
+_Don't mind this repo, it's no longer relevant since Microsoft now have implemented support for refering to a secret without declaring the version of the secret!_
 
 ---
 
