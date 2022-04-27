@@ -1,4 +1,10 @@
-# AzureKeyVaultConfigProvider
+# NOTICE!
+
+_Don't mind this repo, it's no longer relevant since Microsoft now have implemented support for refering to a secret without declaring exact version of the secret!_
+
+---
+
+### AzureKeyVaultConfigProvider
 
 This nuget package gives you an alternative to [Azure Key Vault References](https://docs.microsoft.com/en-us/azure/app-service/app-service-key-vault-references#reference-syntax) that provides 
 the following benefits:
